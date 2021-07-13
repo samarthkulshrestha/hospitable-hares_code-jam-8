@@ -2,9 +2,9 @@ import secrets
 import uuid
 from functools import wraps
 from typing import Callable
-from faker import Faker
 
 import redis
+from faker import Faker
 from flask import Response, jsonify, request
 
 from api import app
