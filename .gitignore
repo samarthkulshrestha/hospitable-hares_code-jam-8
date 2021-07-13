@@ -7,6 +7,8 @@ __pycache__/
 venv
 .env
 env
+Pipfile
+Pipfile.lock
 
 # Unittest reports
 .coverage*
@@ -27,5 +29,12 @@ build/
 .idea/
 # VSCode
 .vscode/
+
+# (Neo)Vim
+Session.vim
+
+# Ctags
+tags
+
 # MacOS
 .DS_Store
