@@ -40,3 +40,5 @@ class HomePage(Frame):
         letters = string.ascii_uppercase
         result_str = "".join(random.choice(letters) for i in range(7))
         return result_str
+
+        # sads
