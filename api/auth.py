@@ -2,6 +2,7 @@ import secrets
 import uuid
 from functools import wraps
 from typing import Callable
+from faker import Faker
 
 import redis
 from flask import Response, jsonify, request
@@ -9,6 +10,7 @@ from flask import Response, jsonify, request
 from api import app
 
 redinst = redis.Redis()
+faker = Faker()
 
 
 def verify_decorator(f: Callable) -> Callable:
@@ -40,7 +42,10 @@ def join() -> Response:
     token = secrets.token_hex(64)
     _id = uuid.uuid1().int
     redinst.set(token, _id)
-    return jsonify({"token": token})
+    return jsonify({
+        "token": token,
+        "username": faker.user_name()
+    })
 
 
 @app.route("/protected")
