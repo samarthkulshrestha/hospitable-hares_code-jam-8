@@ -3,8 +3,7 @@
 import datetime
 
 from peewee import (
-    AutoField, DateField, DateTimeField, ForeignKeyField, Model,
-    SqliteDatabase, TextField
+    DateField, DateTimeField, ForeignKeyField, Model, SqliteDatabase, TextField
 )
 
 # db = PostgresqlDatabase(
@@ -37,7 +36,7 @@ class User(BaseTable):
 class Post(BaseTable):
     """Posts Schema"""
 
-    _id = AutoField()
+    _id = TextField(index=True, primary_key=True)
     body = TextField()
     creator = ForeignKeyField(User)
     created_at = DateTimeField(default=datetime.datetime.now)
