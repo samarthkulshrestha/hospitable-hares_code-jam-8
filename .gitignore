@@ -16,6 +16,9 @@ Pipfile.lock
 # Logs
 *.log
 
+# sqlite database files
+api/data.db
+
 # PyEnv version selector
 .python-version
 
