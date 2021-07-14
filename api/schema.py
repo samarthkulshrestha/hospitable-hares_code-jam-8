@@ -1,6 +1,11 @@
 # import os
 
-from peewee import DateField, Model, SqliteDatabase, TextField
+import datetime
+
+from peewee import (
+    AutoField, DateField, DateTimeField, ForeignKeyField, Model,
+    SqliteDatabase, TextField
+)
 
 # db = PostgresqlDatabase(
 #     str(os.environ.get("DB_NAME", "hospitable-hares_code-jam-8")),
@@ -23,7 +28,16 @@ class BaseTable(Model):
 class User(BaseTable):
     """User schema."""
 
-    _id = TextField(index=True)
+    _id = TextField(index=True, primary_key=True)
     nametag = TextField()
     created_at = DateField()
     last_login_at = DateField(null=True)
+
+
+class Post(BaseTable):
+    """Posts Schema"""
+
+    _id = AutoField()
+    body = TextField()
+    creator = ForeignKeyField(User)
+    created_at = DateTimeField(default=datetime.datetime.now)

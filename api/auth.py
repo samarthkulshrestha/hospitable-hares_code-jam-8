@@ -9,7 +9,7 @@ from faker import Faker
 from flask import Response, jsonify, request
 
 from api import app
-from api.schema import User, db
+from api.schema import Post, User, db
 
 db.connect()
 db.create_tables([User])
@@ -62,6 +62,28 @@ def users() -> Response:
     for user in User.select():
         users.append([user.nametag, user._id, user.created_at])
     return jsonify({"users": users})
+
+
+@app.route("/posts")
+def posts() -> Response:
+    """Paginate the posts"""
+    limit = 25
+    posts = []
+    page_no = request.args.get('page_no', '1')
+    if not page_no.isnumeric():
+        return jsonify({
+            'error': "page_no should be numeric"
+        })
+
+    for post in Post.select().order_by(Post.created_at.desc()).paginate(int(page_no), limit):
+        posts.append({
+            '_id': post._id,
+            'body': post.body,
+            'creator': post.creator._id,
+            'created_at': post.created_at
+        })
+
+    return jsonify(posts)
 
 
 @app.route("/protected")
