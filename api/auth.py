@@ -12,7 +12,7 @@ from api import app
 from api.schema import Post, User, db
 
 db.connect()
-db.create_tables([User])
+db.create_tables([User, Post])
 
 redinst = redis.Redis()
 faker = Faker()
