@@ -9,10 +9,10 @@ from faker import Faker
 from flask import Response, jsonify, request
 
 from api import app
-from api.schema import Post, User, db
+from api.schema import Box, Post, User, db
 
 db.connect()
-db.create_tables([User, Post])
+db.create_tables([User, Post, Box])
 
 redinst = redis.Redis()
 faker = Faker()
@@ -55,17 +55,18 @@ def join() -> Response:
     return jsonify({"nametag": nametag, "token": token})
 
 
-@app.route("/users")
-def users() -> Response:
-    """List all users in the database."""
-    users = []
-    for user in User.select():
-        users.append([user.nametag, user._id, user.created_at])
-    return jsonify({"users": users})
+# We should'nt actually need this, but still leaving it here.
+# @app.route("/users")
+# def users() -> Response:
+#     """List all users in the database."""
+#     users = []
+#     for user in User.select():
+#         users.append([user.nametag, user._id, user.created_at])
+#     return jsonify({"users": users})
 
 
-@app.route("/protected")
-@verify_decorator
-def protected(uid: str) -> Response:
-    """Test route."""
-    return jsonify({"uid": uid})
+# @app.route("/protected")
+# @verify_decorator
+# def protected(uid: str) -> Response:
+#     """Test route."""
+#     return jsonify({"uid": uid})
