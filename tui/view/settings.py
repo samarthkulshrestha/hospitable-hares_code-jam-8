@@ -23,7 +23,7 @@ options_ddl2 = options_ddl1
 options_ddl3 = options_ddl1
 
 
-def settings_display(screen: _CursesScreen):
+def settings_display(screen):
     """
     This method displays the settings for the thoughts in a box project.
     There is still some options remaining, also need to know to transfer the values to other views
