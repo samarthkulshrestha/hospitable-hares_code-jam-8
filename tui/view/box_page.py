@@ -48,7 +48,7 @@ class BoxPage(Frame):
                 h_pos+=1
                 y_pos=0
                 cnt=1
-#            layout2.add_widget(Button(str(box.get(key)),self._onclickbox(b_id=key),y_pos))
+            layout2.add_widget(Button(str(box.get(key)),self._onclickbox(b_id=key),y_pos))
             cnt+=1
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ adding buttons at bottom~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -78,6 +78,11 @@ class BoxPage(Frame):
         " 3" : "random discord moments smh"}
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         raise NextScene("BoxPage")
+    
+    def _onclickbox(b_id=0):
+            BoxTest.name=box.get(b_id)
+            BoxTest.b_id=b_id
+            raise NextScene("BoxTest")
 
     def _onclick_pgsettings(self):
             #settings page undiscussed daddy cool knows
