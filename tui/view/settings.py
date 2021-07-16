@@ -1,11 +1,13 @@
 from asciimatics.screen import Screen
+# from asciimatics.scene import Scene
+# from time import sleep
 from asciimatics.widgets import Divider, DropdownList, Frame, Layout, Button
 from asciimatics.exceptions import NextScene
 
 settings_data = {
-    "ddl1": "",
-    "ddl2": "",
-    "ddl3": ""
+    "fg": "",
+    "bg": "",
+    "txt": ""
 }
 
 options_ddl1 = ["COLOUR_BLACK = 0",
@@ -64,7 +66,7 @@ class Settings(Frame):
         layout3 = Layout([1, 1, 3])
         self.add_layout(layout3)
 
-        layout3.add_widget(Button('back', on_click=self._on_back))
+        layout3.add_widget(Button('back', on_click=self._on_back), 2)
 
         self.fix()
 
