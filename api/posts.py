@@ -68,3 +68,29 @@ def new_box(uid: str) -> Response:
     )
     box.save()
     return jsonify({"box_id": box._id, "name": box.name})
+
+
+@app.route("/boxes", methods=["GET", "POST"])
+def boxes() -> Response:
+    """Paginate the boxes"""
+    limit = 10
+    boxes = []
+    page_no = request.args.get("page_no", "1")
+    if not page_no.isnumeric():
+        return jsonify({"error": "page_no should be numeric"})
+
+    for box in (
+        Box.select()
+        .order_by(Box.created_at.desc())
+        .paginate(int(page_no), limit)
+    ):
+        boxes.append(
+            {
+                "_id": box._id,
+                "name": box.name,
+                "creator": box.creator._id,
+                "created_at": box.created_at,
+            }
+        )
+
+    return jsonify(boxes)
