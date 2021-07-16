@@ -84,7 +84,7 @@ class BoxPage(Frame):
             BoxTest.name=box.get(b_id)
             BoxTest.b_id=b_id
             raise NextScene("BoxTest")
-    def _onclick_newbox(self):
+#    def _onclick_newbox(self):
             
 
 class BoxTest(Frame):
