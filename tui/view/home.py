@@ -22,7 +22,7 @@ class HomePage(Frame):
         layout2 = Layout([1, 2])
         self.add_layout(layout2)
         # Read the widget part on the docuemtation for info about the parameters
-        layout2.add_widget(Button("Login Page", self._onclick_next), 0)
+        layout2.add_widget(Button("Chat Page", self._onclick_next), 0)
         layout2.add_widget(Button("Change Title", self._onclick_change_title), 1)
         # Fix the layouts and calculate the locations of all the widgets.
         # This function should be called once all Layouts have been added to the
@@ -31,7 +31,7 @@ class HomePage(Frame):
         self.fix()
 
     def _onclick_next(self) -> None:
-        raise NextScene("LoginPage")
+        raise NextScene("ChatPage")
 
     def _onclick_change_title(self) -> None:
         self._page_title.text = self._get_random_string()

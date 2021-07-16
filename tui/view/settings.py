@@ -1,7 +1,8 @@
+# flake8: noqa
+
 from asciimatics.scene import Scene
 from asciimatics.screen import Screen, _CursesScreen
 from asciimatics.widgets import Divider, DropdownList, Frame, Layout
-
 
 our_data = {
     "ddl1": "",
