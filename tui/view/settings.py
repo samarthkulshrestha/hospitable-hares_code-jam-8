@@ -1,5 +1,6 @@
 from asciimatics.screen import Screen
-from asciimatics.widgets import Divider, DropdownList, Frame, Layout
+from asciimatics.widgets import Divider, DropdownList, Frame, Layout, Button
+from asciimatics.exceptions import NextScene
 
 settings_data = {
     "ddl1": "",
@@ -52,12 +53,28 @@ class Settings(Frame):
                                        name="txt",
                                        on_change=self._on_change,
                                        ), 1)
+
+        # adding divider
+        layout2 = Layout([10])
+        self.add_layout(layout2)
+
+        layout2.add_widget(Divider(draw_line=False, height=5))
+
+        # adding the button
+        layout3 = Layout([1, 1, 3])
+        self.add_layout(layout3)
+
+        layout3.add_widget(Button('back', on_click=self._on_back))
+
         self.fix()
 
     def _on_change(self) -> None:
         self.save()
         global settings_data
         settings_data = self.data
+
+    def _on_back(self) -> None:
+        raise NextScene("HomePage")
 
 
 def get_settings() -> dict:
