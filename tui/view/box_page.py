@@ -1,17 +1,14 @@
-# flake8: noqa
-
-from time import sleep
-
-from asciimatics.exceptions import (
-    NextScene, ResizeScreenError, StopApplication
-)
-from asciimatics.particles import ParticleEmitter, SerpentFirework
-from asciimatics.paths import Path
-from asciimatics.scene import Scene
 from asciimatics.screen import Screen
-from asciimatics.widgets import Button, Frame, Label, Layout, widget
+from asciimatics.scene import Scene
+from asciimatics.exceptions import ResizeScreenError, NextScene, StopApplication
+from asciimatics.particles import SerpentFirework,ParticleEmitter
+from asciimatics.paths import Path
+from asciimatics.widgets import Frame,Layout,Button,Label,widget,text
+from time import sleep
+import requests as req
+import json
 
- #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~       
 #QUERRY TO FILL BOX DICT {"KEY":"boxid", "VALUE":"BOX NAME"}
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 box={ "1" : "SHOWER THOUGHTS",
@@ -28,14 +25,14 @@ class BoxPage(Frame):
         global box
         hgt=screen.height
         wdt=screen.width
-        layout = Layout([100], fill_frame=True)
+        layout = Layout([100])
         self.add_layout(layout)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ adding title of page~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        self._page_title = Label("BOX's")
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        self._page_title = Label("BOX's",align="^")
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~        
         layout.add_widget(self._page_title)
-        layout3 = Layout([3,3,3])
-        layout2=Layout([int(wdt/5),int(wdt/5),int(wdt/5),int(wdt/5),int(wdt/5)])
+        layout3 = Layout([1,1,1,1])
+        layout2=Layout([1,1,1,1,1], fill_frame=True)
         self.add_layout(layout2)
         self.add_layout(layout3)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ adding boxs at in the middle~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -44,64 +41,54 @@ class BoxPage(Frame):
         cnt=1
         for key in list(box.keys()):
             y_pos+=1
-            if(cnt==5):
+            if(cnt==2):
                 h_pos+=1
                 y_pos=0
                 cnt=1
-            layout2.add_widget(Button(str(box.get(key)),self._onclickbox(b_id=key),y_pos))
-            cnt+=1
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ adding buttons at bottom~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                layout2.add_widget(Label(box.get(key),align="<"),y_pos)
+                layout2.add_widget(Button(str(box.get(key)),self._onclickbox(b_id=key),y_pos))
+            cnt+=1                                   
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~        
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ adding buttons at bottom~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~          
         layout3.add_widget(Button("Settings", self._onclick_pgsettings), 0)
         layout3.add_widget(Button("Load More", self._onclick_loadmore), 1)
         layout3.add_widget(Button("Refresh", self._onclick_refresh), 2)
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~        
 
         self.fix()
 
     def _onclick_loadmore(self):
             global box
 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~        
 #LOAD MORE QUERY REQUIRED:
             box={"1":"yes ",
                      "2":"no"}
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~        
             raise NextScene("BoxPage")
-
+        
     def _onclick_refresh(self):
         global box
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~        
 #REFRESH QUERY REQUIRED
         box={"1":"HESUS I REFRESHED",
         " 2": "GOD PLS LET ME SLEEP",
         " 3" : "random discord moments smh"}
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~        
         raise NextScene("BoxPage")
-    
-    def _onclickbox(b_id=0):
-            BoxTest.name=box.get(b_id)
-            BoxTest.b_id=b_id
-            raise NextScene("BoxTest")
-
+        
     def _onclick_pgsettings(self):
             #settings page undiscussed daddy cool knows
             raise NextScene("Settings")
-    def _onclickbox(b_id=0):
+    def _onclickbox(self,b_id=0):
             BoxTest.name=box.get(b_id)
             BoxTest.b_id=b_id
             raise NextScene("BoxTest")
-
-def main(screen, scene):
-    scenes = [
-        Scene([BoxPage(screen)], -1, name="BoxPage")
-    ]
-    screen.play(scenes, stop_on_resize=True, start_scene=scene, allow_int=True)
-
-
+    def _onclick_newbox(self):
+            
 
 class BoxTest(Frame):
-    name,b_id="",""
+    name,b_id="",""    
     def __init__(self, screen):
 
         super().__init__(screen, screen.height , screen.width )
@@ -115,6 +102,17 @@ class BoxTest(Frame):
         layout2.add_widget(Button("Back",self._onclick_back),1)
     def _onclick_back():
              raise NextScene("BoxPage")
+              
+        
+
+def main(screen, scene):
+    scenes = [
+        Scene([BoxPage(screen)], -1, name="BoxPage"),
+        Scene([BoxTest(screen)], -1, name="BoxTest"),
+    ]
+    screen.play(scenes, stop_on_resize=True, start_scene=scene, allow_int=True)
+
+
 
 
 
