@@ -1,6 +1,8 @@
 from asciimatics.exceptions import NextScene, StopApplication
 from asciimatics.screen import Screen
-from asciimatics.widgets import Button, Frame, Label, Layout
+from asciimatics.widgets import Button, Frame, Layout
+
+from tui.custom_widgets.mywidget import MyWidget
 
 
 class LoginPage(Frame):
@@ -12,10 +14,10 @@ class LoginPage(Frame):
 
         # Frame can contain multiple layouts, add display-widgets to layout to display the data you want
         # first parameter explained: no of items on list = no of columns. value of list item = column width
-        layout = Layout([100], fill_frame=True)
+        layout = Layout([500], fill_frame=True)
         self.add_layout(layout)
-        self._page_title = Label("Login Page")
-        layout.add_widget(self._page_title)
+        self._chat_box = MyWidget()
+        layout.add_widget(self._chat_box)
         layout2 = Layout([1, 1, 1, 1])
         self.add_layout(layout2)
         # Read the widget part on the docuemtation for info about the parameters

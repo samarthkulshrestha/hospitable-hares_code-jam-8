@@ -19,11 +19,11 @@ class HomePage(Frame):
         self.add_layout(layout)
         self._page_title = Label("HOMEPAGE")
         layout.add_widget(self._page_title)
-        layout2 = Layout([1, 1, 1, 1])
+        layout2 = Layout([1, 2])
         self.add_layout(layout2)
         # Read the widget part on the docuemtation for info about the parameters
         layout2.add_widget(Button("Login Page", self._onclick_next), 0)
-        layout2.add_widget(Button("Change Title", self._onclick_change_title), 3)
+        layout2.add_widget(Button("Change Title", self._onclick_change_title), 1)
         # Fix the layouts and calculate the locations of all the widgets.
         # This function should be called once all Layouts have been added to the
         # frame and all widgets added to the Layouts.
