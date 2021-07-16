@@ -1,21 +1,22 @@
 from asciimatics.exceptions import NextScene, StopApplication
 from asciimatics.screen import Screen
-from asciimatics.widgets import Button, Frame, Label, Layout
+from asciimatics.widgets import Button, Frame, Layout, TextBox
+from asciimatics.widgets.widget import Widget
 
 
-class LoginPage(Frame):
+class ChatPage(Frame):
     """The class def for login page"""
 
-    def __init__(self, screen: Screen):
+    def __init__(self, screen: Screen, chat_data: dict):
         #
         super().__init__(screen, screen.height * 2 // 3, screen.width * 2 // 3)
-
+        self._chat_data = chat_data
         # Frame can contain multiple layouts, add display-widgets to layout to display the data you want
         # first parameter explained: no of items on list = no of columns. value of list item = column width
-        layout = Layout([100], fill_frame=True)
+        layout = Layout([500], fill_frame=True)
         self.add_layout(layout)
-        self._page_title = Label("Login Page")
-        layout.add_widget(self._page_title)
+        self._chat_box = TextBox(Widget.FILL_FRAME, None, "chat", as_string=False, line_wrap=True, readonly=True)
+        layout.add_widget(self._chat_box)
         layout2 = Layout([1, 1, 1, 1])
         self.add_layout(layout2)
         # Read the widget part on the docuemtation for info about the parameters
@@ -26,6 +27,11 @@ class LoginPage(Frame):
         # to the Frame and all widgets added to the Layouts.
         # Method Belongs to parent class (FRAME)
         self.fix()
+
+    def reset(self) -> None:
+        """Check docs"""
+        super().reset()
+        self.data = self._chat_data
 
     def _onclick_previous(self) -> None:
         raise NextScene("HomePage")
