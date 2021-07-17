@@ -21,13 +21,11 @@ def join():
 
     encrypt(filename, key)
 
-def get_posts(box_id, *kwargs):
+def get_posts(box_id, **kwargs):
     token = get_token_from_file()
 
     pload = {'box_id': box_id, "page_no": kwargs.get('page_no', '1')}
     headers = {'Auth-Token': token}
 
     r = requests.post(base_url + '/posts', data=pload, headers=headers)
-    print(r.json())
-
-# get_posts()
+    return r.json()
