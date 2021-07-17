@@ -16,11 +16,18 @@ class ChatPage(Frame):
         # first parameter explained: no of items on list = no of columns. value of list item = column width
         layout = Layout([500], fill_frame=True)
         self.add_layout(layout)
-        self._chat_box = TextBox(Widget.FILL_FRAME, None, "chat", as_string=False, line_wrap=True, readonly=True)
+        self._chat_box = TextBox(
+            Widget.FILL_FRAME,
+            None, "chat",
+            as_string=False,
+            line_wrap=True,
+            readonly=True,
+            disabled=True)
         layout.add_widget(self._chat_box)
         layout2 = Layout([1])
         self.add_layout(layout2)
-        self._message_box = Text(name="my_message", on_change=self._onchange)
+        self._message_box = Text(name="my_message", on_change=self._onchange, label='>>>')
+        # layout2.add_widget(Label(label='>'))
         layout2.add_widget(self._message_box)
         layout3 = Layout([1, 1, 1])
         self.add_layout(layout3)
