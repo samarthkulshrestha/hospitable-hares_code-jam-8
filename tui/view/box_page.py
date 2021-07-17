@@ -1,16 +1,22 @@
-# from tui.__main__ import BoxSelection
-from asciimatics.screen import Screen
-from asciimatics.scene import Scene
-from asciimatics.exceptions import ResizeScreenError, NextScene, StopApplication
-from asciimatics.particles import SerpentFirework,ParticleEmitter
-from asciimatics.paths import Path
-from asciimatics.widgets import Frame,Layout,Button,Label,widget,TextBox,Divider,VerticalDivider,PopupMenu,Widget,DropdownList, ListBox
-from time import sleep
-from tui.view.settings import Settings, get_settings
-import requests as req
+# flake8: noqa
 import json
 import sys
+from time import sleep
 
+import requests as req
+from asciimatics.exceptions import (
+    NextScene, ResizeScreenError, StopApplication
+)
+from asciimatics.particles import ParticleEmitter, SerpentFirework
+from asciimatics.paths import Path
+from asciimatics.scene import Scene
+from asciimatics.screen import Screen
+from asciimatics.widgets import (
+    Button, Divider, DropdownList, Frame, Label, Layout, ListBox, PopupMenu,
+    TextBox, VerticalDivider, Widget, widget
+)
+
+from tui.view.settings import Settings, get_settings
 
 box={ 1 : "SHOWER THOUGHTS",
       2 :  "BIG BRAINERS",
@@ -66,7 +72,7 @@ class BoxPage(Frame):
         ending_buttons_layout.add_widget(Button("Refresh", self._onclick_refresh), 2)
         ending_buttons_layout.add_widget(Button("Create New Box", self._onclick_newbx), 3)
         ending_buttons_layout.add_widget(Button("Quit" , self._onclick_quit), 4)
-        
+
 
         self.fix()
 
@@ -76,18 +82,18 @@ class BoxPage(Frame):
             box={"1":"yes ",
                      "2":"no"}
             raise NextScene("BoxPage")
-        
+
     def _onclick_refresh(self):
         global box
         box={"1":"HESUS I REFRESHED",
         " 2": "GOD PLS LET ME SLEEP",
         " 3" : "random discord moments smh"}
         raise NextScene("BoxPage")
-        
+
     def _onclick_pgsettings(self):
             raise NextScene("Settings")
 
-    def _onclick_newbx(self):   
+    def _onclick_newbx(self):
             raise NextScene("NewBoxPage")
 
     def _onclick_quit(self):
@@ -108,39 +114,26 @@ class BoxButtons(Button):
         self.id = id
         self.url = url
         super().__init__(self.title, self._on_click)
-    
+
     def _on_click():
         # call url or from id
         pass
 
 
-
-
 class NewBoxPage(Frame):
 
     def __init__(self, screen, box_selection):
-        
-        super().__init__(screen, screen.height*2//3, screen.width*2//3, data=self.data)
-        self.data = {
-            1: "great job"
-        }
-        self.box_selection = box_selection
 
-        enter_name = Layout([1], fill_frame=True)
-        self.add_layout(enter_name)
-        enter_name.add_widget(TextBox(1, label="Enter box name: ", name="box_name"))
+        super().__init__(screen, screen.height*2//3 , screen.width*2//3 )
+        newbox_layout= Layout([1,1], fill_frame=True)
 
-        newbox_buttons= Layout([1, 1])
-
-        self.add_layout(newbox_buttons)
-        newbox_buttons.add_widget(Button("Create", self._onclick_create), 0)
-        newbox_buttons.add_widget(Button("Cancel", self._onclick_cancel), 1)
+        self.add_layout(newbox_layout)
+        newbox_layout.add_widget(Button("Create",self._onclick_create),0)
+        newbox_layout.add_widget(Button("Cancel",self._onclick_cancel),1)
 
 
     def _onclick_create(self):
-        self.save()
-        self.box_selection.new_box(self.data)
-        raise NextScene("ChatPage")
+        ...
     def _onclick_cancel(self):
         raise NextScene("BoxPage")
     def _onclick_quit(self):
@@ -160,7 +153,7 @@ if __name__ == "__main__":
     last_scene = None
     while True:
         try:
-            Screen.wrapper(main, arguments=[last_scene])
+            Screen.wrapper(main, catch_interrupt=True, arguments=[last_scene])
             sys.exit(0)
         except ResizeScreenError as e:
             last_scene = e.scene
