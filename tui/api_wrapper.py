@@ -48,3 +48,11 @@ def get_boxes(**kwargs):
     r = requests.post(base_url + '/boxes', data=pload, headers=headers)
     return r.json()
 
+def new_box(**kwargs):
+    token = get_token_from_file()
+
+    pload = {"name": kwargs["name"]}
+    headers = {'Auth-Token': token, 'Content-Type': 'application/json'}
+
+    r = requests.post(base_url + '/new_box', data=pload, headers=headers)
+    return r.json()
