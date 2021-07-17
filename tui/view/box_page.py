@@ -110,11 +110,11 @@ class NewBoxPage(Frame):
     def __init__(self, screen):
 
         super().__init__(screen, screen.height , screen.width )
-        layout5=Layout([100])
+        layout5=Layout([1,1])
     
-
-        layout6.add_widget(Button("Create",self._onclick_create),0)
-        layout6.add_widget(Button("Cancel",self._onclick_cancel),1)
+        self.add_layout(layout5)
+        layout5.add_widget(Button("Create",self._onclick_create),0)
+        layout5.add_widget(Button("Cancel",self._onclick_cancel),1)
 
 
     def _onclick_create(self):
