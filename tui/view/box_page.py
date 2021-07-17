@@ -117,18 +117,20 @@ class NewBoxPage(Frame):
 
     def __init__(self, screen, box_selection):
 
-        super().__init__(screen, screen.height , screen.width )
-        layout5=Layout([1,1])
+        super().__init__(screen, screen.height*2//3 , screen.width*2//3 )
+        newbox_layout= Layout([1,1], fill_frame=True)
     
-        self.add_layout(layout5)
-        layout5.add_widget(Button("Create",self._onclick_create),0)
-        layout5.add_widget(Button("Cancel",self._onclick_cancel),1)
+        self.add_layout(newbox_layout)
+        newbox_layout.add_widget(Button("Create",self._onclick_create),0)
+        newbox_layout.add_widget(Button("Cancel",self._onclick_cancel),1)
 
 
     def _onclick_create(self):
-                return
+                
     def _onclick_cancel(self):
                 raise NextScene("BoxPage")
+    def _onclick_quit(self):
+            raise StopApplication("usr prssed exit")
 
 
 def main(screen, scene):

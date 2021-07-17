@@ -48,7 +48,7 @@ if __name__ == "__main__":
     last_scene = None
     while True:
         try:
-            Screen.wrapper(main, catch_interrupt=True, arguments=[last_scene])
+            Screen.wrapper(main, arguments=[last_scene])
             sys.exit(0)
         except ResizeScreenError as e:
             last_scene = e.scene

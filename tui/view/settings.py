@@ -32,7 +32,7 @@ class Settings(Frame):
 
     def __init__(self, screen: Screen) -> None:
         global settings_data
-        super().__init__(screen, screen.height, screen.width,
+        super().__init__(screen, screen.height*2//3, screen.width*2//3,
                          has_border=False, title="Setting", data=settings_data, name="settings_form")
         layout = Layout([1, 18, 1])
 
