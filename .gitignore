@@ -7,12 +7,17 @@ __pycache__/
 venv
 .env
 env
+Pipfile
+Pipfile.lock
 
 # Unittest reports
 .coverage*
 
 # Logs
 *.log
+
+# sqlite database files
+data.db
 
 # PyEnv version selector
 .python-version
@@ -27,5 +32,13 @@ build/
 .idea/
 # VSCode
 .vscode/
+
+# (Neo)Vim
+Session.vim
+
+# Ctags
+tags
+
 # MacOS
 .DS_Store
+
