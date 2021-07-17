@@ -114,12 +114,17 @@ class BoxButtons(Button):
         pass
 
 
+
+
 class NewBoxPage(Frame):
 
     def __init__(self, screen, box_selection):
-        self.data = {}
-        self.box_selection = box_selection
+        
         super().__init__(screen, screen.height*2//3, screen.width*2//3, data=self.data)
+        self.data = {
+            1: "great job"
+        }
+        self.box_selection = box_selection
 
         enter_name = Layout([1], fill_frame=True)
         self.add_layout(enter_name)
