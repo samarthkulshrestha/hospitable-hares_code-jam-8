@@ -17,7 +17,9 @@ def posts(uid: str) -> Response:
     box = Box.get(Box._id == request.json["box_id"])
     if not box:
         return jsonify({"message": "invalid box id"})
-    page_no = request.args.get("page_no", "1")
+    page_no = request.json["page_no"]
+    if not page_no:
+        page_no = '1'
     if not page_no.isnumeric():
         return jsonify({"error": "page_no should be numeric"})
 
@@ -71,13 +73,15 @@ def new_box(uid: str) -> Response:
     return jsonify({"box_id": box._id, "name": box.name})
 
 
-@app.route("/boxes", methods=["GET", "POST"])
+@app.route("/boxes", methods=["POST"])
 @verify_decorator
 def boxes(uid: str) -> Response:
     """Paginate the boxes"""
     limit = 10
     boxes = []
-    page_no = request.args.get("page_no", "1")
+    page_no = request.json["page_no"]
+    if not page_no:
+        page_no = '1'
     if not page_no.isnumeric():
         return jsonify({"error": "page_no should be numeric"})
 
