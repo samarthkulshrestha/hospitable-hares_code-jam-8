@@ -1,8 +1,8 @@
+from asciimatics.exceptions import NextScene
 from asciimatics.screen import Screen
 # from asciimatics.scene import Scene
 # from time import sleep
-from asciimatics.widgets import Divider, DropdownList, Frame, Layout, Button
-from asciimatics.exceptions import NextScene
+from asciimatics.widgets import Button, Divider, DropdownList, Frame, Layout
 
 settings_data = {
     "fg": "",
@@ -24,7 +24,6 @@ options_ddl3 = options_ddl1
 
 
 class Settings(Frame):
-
     """
     This class will display the setting pane.
 
