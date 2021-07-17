@@ -23,9 +23,9 @@ class BoxSelection(object):
         # name, address, phone, email and notes fields.
         self.boxes = dict()
 
-    def refresh():
+    def refresh(self):
         pass
-    def new_box(data):
+    def new_box(self, data):
         pass
 
 
