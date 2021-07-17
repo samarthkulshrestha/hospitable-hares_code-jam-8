@@ -122,7 +122,7 @@ class BoxButtons(Button):
 
 class NewBoxPage(Frame):
 
-    def __init__(self, screen):
+    def __init__(self, screen, box_selection):
 
         super().__init__(screen, screen.height , screen.width )
         layout5=Layout([1,1])
