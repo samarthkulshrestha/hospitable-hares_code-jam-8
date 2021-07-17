@@ -50,7 +50,7 @@ class BoxPage(Frame):
         box_layout.add_widget(list_box)
 
 
-        # # divider
+        # divider
         # divider_layout = Layout([100])
         # self.add_layout(divider_layout)
         # # TODO - div_height change

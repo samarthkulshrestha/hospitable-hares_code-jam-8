@@ -8,6 +8,16 @@ from tui.view.box_page import BoxPage
 from tui.view.chat import ChatPage
 from tui.view.home import HomePage
 
+
+class BoxSelection(object):
+    def __init__(self):
+        # Current contact when editing.
+        self.current_box_id = None
+
+        # List of dicts, where each dict contains a single contact, containing
+        # name, address, phone, email and notes fields.
+        self.boxes = []
+
 chat_data = {
     "chat": ["This is the first text", "This is the second text"],
     "my_message": '',
@@ -16,9 +26,12 @@ chat_data = {
 
 def main(screen: Screen, scene: Scene) -> None:
     """The class's docstring"""
+
+    boxselection = BoxSelection()
+
     scenes = [
         Scene([HomePage(screen)], -1, name="HomePage"),
-        Scene([BoxPage(screen)], -1, name="BoxPage"),
+        Scene([BoxPage(screen, box_selection=boxselection)], -1, name="BoxPage"),
         Scene([ChatPage(screen, chat_data=chat_data)], -1, name="ChatPage"),
 
     ]
