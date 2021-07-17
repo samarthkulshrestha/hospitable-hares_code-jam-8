@@ -1,5 +1,6 @@
+# flake8: noqa
+
 import sys
-from tui.view.settings import Settings
 
 from asciimatics.exceptions import ResizeScreenError
 from asciimatics.scene import Scene
@@ -8,6 +9,7 @@ from asciimatics.screen import Screen
 from tui.view.box_page import BoxPage, NewBoxPage
 from tui.view.chat import ChatPage
 from tui.view.home import HomePage
+from tui.view.settings import Settings
 
 
 class BoxSelection(object):
@@ -20,7 +22,7 @@ class BoxSelection(object):
         # List of dicts, where each dict contains a single contact, containing
         # name, address, phone, email and notes fields.
         self.boxes = dict()
-    
+
     def refresh():
         pass
 
