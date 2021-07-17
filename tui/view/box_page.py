@@ -1,3 +1,4 @@
+# from tui.__main__ import BoxSelection
 from asciimatics.screen import Screen
 from asciimatics.scene import Scene
 from asciimatics.exceptions import ResizeScreenError, NextScene, StopApplication
@@ -116,21 +117,29 @@ class BoxButtons(Button):
 class NewBoxPage(Frame):
 
     def __init__(self, screen, box_selection):
+        self.data = {}
+        self.box_selection = box_selection
+        super().__init__(screen, screen.height*2//3, screen.width*2//3, data=self.data)
 
-        super().__init__(screen, screen.height*2//3 , screen.width*2//3 )
-        newbox_layout= Layout([1,1], fill_frame=True)
-    
-        self.add_layout(newbox_layout)
-        newbox_layout.add_widget(Button("Create",self._onclick_create),0)
-        newbox_layout.add_widget(Button("Cancel",self._onclick_cancel),1)
+        enter_name = Layout([1], fill_frame=True)
+        self.add_layout(enter_name)
+        enter_name.add_widget(TextBox(1, label="Enter box name: ", name="box_name"))
+
+        newbox_buttons= Layout([1, 1])
+
+        self.add_layout(newbox_buttons)
+        newbox_buttons.add_widget(Button("Create", self._onclick_create), 0)
+        newbox_buttons.add_widget(Button("Cancel", self._onclick_cancel), 1)
 
 
     def _onclick_create(self):
-                
+        self.save()
+        self.box_selection.new_box(self.data)
+        raise NextScene("ChatPage")
     def _onclick_cancel(self):
-                raise NextScene("BoxPage")
+        raise NextScene("BoxPage")
     def _onclick_quit(self):
-            raise StopApplication("usr prssed exit")
+        raise StopApplication("usr prssed exit")
 
 
 def main(screen, scene):
@@ -146,7 +155,7 @@ if __name__ == "__main__":
     last_scene = None
     while True:
         try:
-            Screen.wrapper(main, catch_interrupt=True, arguments=[last_scene])
+            Screen.wrapper(main, arguments=[last_scene])
             sys.exit(0)
         except ResizeScreenError as e:
             last_scene = e.scene

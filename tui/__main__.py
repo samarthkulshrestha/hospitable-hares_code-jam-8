@@ -23,6 +23,8 @@ class BoxSelection(object):
     
     def refresh():
         pass
+    def new_box(data):
+        pass
 
 
 chat_data = {
@@ -41,7 +43,7 @@ def main(screen: Screen, scene: Scene) -> None:
         Scene([BoxPage(screen, box_selection=boxselection)], -1, name="BoxPage"),
         Scene([ChatPage(screen, chat_data=chat_data)], -1, name="ChatPage"),
         Scene([NewBoxPage(screen, boxselection)], -1, name="NewBoxPage"),
-        Scene([Settings(screen)], -1, name="Settings"),
+        # Scene([Settings(screen)], -1, name="Settings"),
     ]
     screen.play(scenes, stop_on_resize=True, start_scene=scene, allow_int=True)
 
