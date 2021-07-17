@@ -19,10 +19,13 @@ box={ 1 : "SHOWER THOUGHTS",
 
 class BoxPage(Frame):
 
-    def __init__(self, screen):
+    def __init__(self, screen, box_selection):
 
         super().__init__(screen, screen.height*2//3, screen.width*2//3, hover_focus=True, can_scroll=True)
         global box
+
+        self._box_selection = box_selection
+
         scr_height = screen.height
         scr_width = screen.width
 
@@ -61,7 +64,7 @@ class BoxPage(Frame):
         ending_buttons_layout.add_widget(Button("Load More", self._onclick_loadmore), 1)
         ending_buttons_layout.add_widget(Button("Refresh", self._onclick_refresh), 2)
         ending_buttons_layout.add_widget(Button("Create New Box", self._onclick_newbx), 3)
-        ending_buttons_layout.add_widget(Button("Quit",self._onclick_quit), 4)
+        ending_buttons_layout.add_widget(Button("Quit" , self._onclick_quit), 4)
         
 
         self.fix()
@@ -91,7 +94,7 @@ class BoxPage(Frame):
 
     def _edit(self):
         self.save()
-        self._model.current_id = self.data["contacts"]
+        self._model.current_id = self.data["box_name"]
         raise NextScene("ChatPage")
 
     def _on_pick(self):
