@@ -27,15 +27,15 @@ class ChatPage(Frame):
         layout.add_widget(self._chat_box)
         layout2 = Layout([1])
         self.add_layout(layout2)
-        self._message_box = Text(name="my_message", on_change=self._onchange, label='>>>')
+        self._message_box = Text(name="my_message", on_change=self._onchange, label='>>>', on_focus=self._text_on_focus)
         # layout2.add_widget(Label(label='>'))
         layout2.add_widget(self._message_box)
         layout3 = Layout([1, 1, 1])
         self.add_layout(layout3)
         # Read the widget part on the docuemtation for info about the parameters
-        layout3.add_widget(Button("Send Message", self._onclick_send_message, ), 0)
-        layout3.add_widget(Button("Previous Page", self._onclick_previous), 1)
-        layout3.add_widget(Button("Quit", self._onclick_quit), 2)
+        layout3.add_widget(Button("Send Message", self._onclick_send_message, on_focus=self._text_not_on_focus), 0)
+        layout3.add_widget(Button("Previous Page", self._onclick_previous, on_focus=self._text_not_on_focus), 1)
+        layout3.add_widget(Button("Quit", self._onclick_quit, on_focus=self._text_not_on_focus), 2)
         # Fix the layouts and calculate the locations of all the widgets.
         # This function should be called once all Layouts have been added
         # to the Frame and all widgets added to the Layouts.
@@ -54,12 +54,14 @@ class ChatPage(Frame):
                 
         return super().process_event(event)
 
+    def _text_on_focus(self) -> None:
+        self.data['is_on_text'] = True
+
+    def _text_not_on_focus(self) -> None:
+        self.data['is_on_text'] = False
+
     def _onchange(self) -> None:
         self.data['my_message'] = self._message_box._value
-        if self.data['my_message']:
-            self.data['is_on_text'] = True
-        else:
-            self.data['is_on_text'] = False
 
     def _onclick_send_message(self) -> None:
         """Send Message"""
