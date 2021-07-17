@@ -9,7 +9,8 @@ from tui.view.chat import ChatPage
 from tui.view.home import HomePage
 
 chat_data = {
-    "chat": ["This is the first text", "This is the second text"]
+    "chat": ["This is the first text", "This is the second text"],
+    "my_message": '',
 }
 
 
