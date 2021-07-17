@@ -1,15 +1,22 @@
-from asciimatics.screen import Screen
-from asciimatics.scene import Scene
-from asciimatics.exceptions import ResizeScreenError, NextScene, StopApplication
-from asciimatics.particles import SerpentFirework,ParticleEmitter
-from asciimatics.paths import Path
-from asciimatics.widgets import Frame,Layout,Button,Label,widget,TextBox,Divider,VerticalDivider,PopupMenu,Widget,DropdownList, ListBox
-from time import sleep
-from tui.view.settings import Settings, get_settings
-import requests as req
+# flake8: noqa
 import json
 import sys
+from time import sleep
 
+import requests as req
+from asciimatics.exceptions import (
+    NextScene, ResizeScreenError, StopApplication
+)
+from asciimatics.particles import ParticleEmitter, SerpentFirework
+from asciimatics.paths import Path
+from asciimatics.scene import Scene
+from asciimatics.screen import Screen
+from asciimatics.widgets import (
+    Button, Divider, DropdownList, Frame, Label, Layout, ListBox, PopupMenu,
+    TextBox, VerticalDivider, Widget, widget
+)
+
+from tui.view.settings import Settings, get_settings
 
 box={ 1 : "SHOWER THOUGHTS",
       2 :  "BIG BRAINERS",
@@ -65,7 +72,7 @@ class BoxPage(Frame):
         ending_buttons_layout.add_widget(Button("Refresh", self._onclick_refresh), 2)
         ending_buttons_layout.add_widget(Button("Create New Box", self._onclick_newbx), 3)
         ending_buttons_layout.add_widget(Button("Quit" , self._onclick_quit), 4)
-        
+
 
         self.fix()
 
@@ -75,18 +82,18 @@ class BoxPage(Frame):
             box={"1":"yes ",
                      "2":"no"}
             raise NextScene("BoxPage")
-        
+
     def _onclick_refresh(self):
         global box
         box={"1":"HESUS I REFRESHED",
         " 2": "GOD PLS LET ME SLEEP",
         " 3" : "random discord moments smh"}
         raise NextScene("BoxPage")
-        
+
     def _onclick_pgsettings(self):
             raise NextScene("Settings")
 
-    def _onclick_newbx(self):   
+    def _onclick_newbx(self):
             raise NextScene("NewBoxPage")
 
     def _onclick_quit(self):
@@ -107,7 +114,7 @@ class BoxButtons(Button):
         self.id = id
         self.url = url
         super().__init__(self.title, self._on_click)
-    
+
     def _on_click():
         # call url or from id
         pass
@@ -119,7 +126,7 @@ class NewBoxPage(Frame):
 
         super().__init__(screen, screen.height , screen.width )
         layout5=Layout([1,1])
-    
+
         self.add_layout(layout5)
         layout5.add_widget(Button("Create",self._onclick_create),0)
         layout5.add_widget(Button("Cancel",self._onclick_cancel),1)

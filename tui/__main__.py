@@ -10,6 +10,8 @@ from tui.view.home import HomePage
 
 
 class BoxSelection(object):
+    """sksdasklfjaslkfj"""
+
     def __init__(self):
         # Current contact when editing.
         self.current_box_id = None
@@ -17,6 +19,7 @@ class BoxSelection(object):
         # List of dicts, where each dict contains a single contact, containing
         # name, address, phone, email and notes fields.
         self.boxes = []
+
 
 chat_data = {
     "chat": ["This is the first text", "This is the second text"],
@@ -26,7 +29,6 @@ chat_data = {
 
 def main(screen: Screen, scene: Scene) -> None:
     """The class's docstring"""
-
     boxselection = BoxSelection()
 
     scenes = [
