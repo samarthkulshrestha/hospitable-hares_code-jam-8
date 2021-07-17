@@ -9,7 +9,8 @@ from api.schema import Box, Post, User
 
 
 @app.route("/posts", methods=["POST"])
-def posts() -> Response:
+@verify_decorator
+def posts(uid: str) -> Response:
     """Paginate the posts"""
     limit = 25
     posts = []
@@ -74,7 +75,8 @@ def new_box(uid: str) -> Response:
 
 
 @app.route("/boxes", methods=["GET", "POST"])
-def boxes() -> Response:
+@verify_decorator
+def boxes(uid: str) -> Response:
     """Paginate the boxes"""
     limit = 10
     boxes = []
