@@ -1,6 +1,6 @@
 # flake8: noqa
 
-import sys
+import sys, os
 
 from asciimatics.exceptions import ResizeScreenError
 from asciimatics.scene import Scene
@@ -10,6 +10,8 @@ from tui.view.box_page import BoxPage, NewBoxPage
 from tui.view.chat import ChatPage
 from tui.view.home import HomePage
 from tui.view.settings import Settings
+from tui import api_wrapper
+from tui import crypt
 
 
 class BoxSelection(object):
@@ -21,11 +23,25 @@ class BoxSelection(object):
 
         # List of dicts, where each dict contains a single contact, containing
         # name, address, phone, email and notes fields.
+        z = os.path.isfile("key.key")
+        if not z:
+            crypt.write_key()
+        x = os.path.isfile("token")
+        if not x:
+            api_wrapper.join()
         self.boxes = dict()
+        self.refresh()
+        '''
+        get_posts() -> box_id, page_no, load_more
+        post() -> box_id, message_body
+        '''
 
     def refresh(self):
+        
+        self.boxes = 
         pass
     def new_box(self, data):
+
         pass
 
 

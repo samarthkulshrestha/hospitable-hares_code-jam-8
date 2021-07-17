@@ -38,9 +38,9 @@ class BoxPage(Frame):
         self._page_title = Label("BOXs available", align="^")
         box_layout.add_widget(self._page_title)
 
-        box_list = []
-        for i in box:
-            box_list.append(box[i])
+        # box_list = []
+        # for i in box:
+        #     box_list.append(box[i])
 
         list_box = ListBox(
             Widget.FILL_FRAME,
