@@ -2,6 +2,7 @@ from asciimatics.exceptions import NextScene, StopApplication
 from asciimatics.screen import Screen
 from asciimatics.widgets import Button, Frame, Layout, Text, TextBox
 from asciimatics.widgets.widget import Widget
+from asciimatics.event import KeyboardEvent
 
 
 class ChatPage(Frame):
@@ -40,6 +41,16 @@ class ChatPage(Frame):
         # to the Frame and all widgets added to the Layouts.
         # Method Belongs to parent class (FRAME)
         self.fix()
+
+    def process_event(self, event):
+        if isinstance(event, KeyboardEvent):
+            if event.key_code in [ord('q'), ord('Q'), Screen.ctrl("c")]:
+                raise StopApplication("User quit")
+            if event.key_code in [10, 13]:
+                # self.save()
+                self._chat_data['chat'].append(self.data['my_message'])
+                self.reset()
+        return super().process_event(event)
 
     def _onchange(self) -> None:
         self.data['my_message'] = self._message_box._value
