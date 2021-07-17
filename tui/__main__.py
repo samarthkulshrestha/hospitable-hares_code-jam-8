@@ -11,6 +11,8 @@ from tui.view.home import HomePage
 
 
 class BoxSelection(object):
+    """sksdasklfjaslkfj"""
+
     def __init__(self):
         # Current contact when editing.
         self.current_box_id = None
@@ -22,6 +24,7 @@ class BoxSelection(object):
     def refresh():
         pass
 
+
 chat_data = {
     "chat": ["This is the first text", "This is the second text"],
     "my_message": '',
@@ -30,7 +33,6 @@ chat_data = {
 
 def main(screen: Screen, scene: Scene) -> None:
     """The class's docstring"""
-
     boxselection = BoxSelection()
     #boxselection.refresh()
 
