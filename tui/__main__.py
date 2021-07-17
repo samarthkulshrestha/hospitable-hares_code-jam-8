@@ -13,7 +13,7 @@ from tui.view.settings import Settings
 
 
 class BoxSelection(object):
-    """sksdasklfjaslkfj"""
+    """State controller object"""
 
     def __init__(self):
         # Current contact when editing.

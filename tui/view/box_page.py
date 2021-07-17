@@ -27,8 +27,8 @@ class BoxPage(Frame):
         super().__init__(screen, screen.height*2//3, screen.width*2//3, hover_focus=True, can_scroll=True)
         global box
 
-        self._box_selection = box_selection
-
+        #self._box_selection = box_selection
+        #box = self._box_selection.boxes
         scr_height = screen.height
         scr_width = screen.width
 
