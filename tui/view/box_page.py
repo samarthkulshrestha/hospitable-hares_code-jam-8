@@ -7,6 +7,7 @@ from asciimatics.particles import SerpentFirework,ParticleEmitter
 from asciimatics.paths import Path
 from asciimatics.widgets import Frame,Layout,Button,Label,widget,TextBox,Divider,VerticalDivider,PopupMenu,Widget,DropdownList, ListBox
 from time import sleep
+from asciimatics.event import KeyboardEvent
 from tui.view.settings import Settings, get_settings
 import requests as req
 import json
