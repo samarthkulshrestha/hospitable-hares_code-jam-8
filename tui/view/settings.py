@@ -5,9 +5,9 @@ from asciimatics.screen import Screen
 from asciimatics.widgets import Button, Divider, DropdownList, Frame, Layout
 
 settings_data = {
-    "fg": "",
-    "bg": "",
-    "txt": ""
+    "fg": "0",
+    "bg": "0",
+    "txt": "0"
 }
 
 options_ddl1 = ["COLOUR_BLACK = 0",

@@ -1,3 +1,4 @@
+# flake8: noqa
 # from tui.__main__ import BoxSelection
 from asciimatics.screen import Screen
 from asciimatics.scene import Scene
@@ -126,13 +127,13 @@ class NewBoxPage(Frame):
 
         enter_name = Layout([1], fill_frame=True)
         self.add_layout(enter_name)
-        enter_name.add_widget(TextBox(1, label="Enter box name: ", name="box_name"))
+        enter_name.add_widget(TextBox(1, label="Enter box name: ", name="box_name", on_focus=self._focus_on_text))
 
         newbox_buttons = Layout([1, 1])
 
         self.add_layout(newbox_buttons)
-        newbox_buttons.add_widget(Button("Create", self._onclick_create), 0)
-        newbox_buttons.add_widget(Button("Cancel", self._onclick_cancel), 1)
+        newbox_buttons.add_widget(Button("Create", self._onclick_create, on_focus=self._focus_not_on_text), 0)
+        newbox_buttons.add_widget(Button("Cancel", self._onclick_cancel, on_focus=self._focus_not_on_text), 1)
 
         self.fix()
 
@@ -146,6 +147,24 @@ class NewBoxPage(Frame):
         raise NextScene("BoxPage")
     def _onclick_quit(self):
         raise StopApplication("usr prssed exit")
+
+    def _focus_on_text(self):
+        self.data['is_on_text'] = True
+
+    def _focus_not_on_text(self):
+        self.data['is_on_text'] = False
+
+    def process_event(self, event):
+        if isinstance(event, KeyboardEvent):
+            if event.key_code in [Screen.ctrl("c")]:
+                raise StopApplication("User quit")
+            if event.key_code in [10, 13]:
+                # self.save()
+                if self.data['is_on_text']:
+                    self._chat_data['chat'].append(self.data['my_message'])
+                    self.reset()
+                
+        return super().process_event(event)
 
 
 def main(screen, scene):

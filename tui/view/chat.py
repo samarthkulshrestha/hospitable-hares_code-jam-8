@@ -1,3 +1,4 @@
+# flake8: noqa
 from asciimatics.exceptions import NextScene, StopApplication
 from asciimatics.screen import Screen
 from asciimatics.widgets import Button, Frame, Layout, Text, TextBox
@@ -48,6 +49,8 @@ class ChatPage(Frame):
                 raise StopApplication("User quit")
             if event.key_code in [10, 13]:
                 # self.save()
+                if 'is_on_text' in self.data:
+                    self.data['is_on_text'] = True
                 if self.data['is_on_text']:
                     self._chat_data['chat'].append(self.data['my_message'])
                     self.reset()
@@ -65,6 +68,8 @@ class ChatPage(Frame):
 
     def _onclick_send_message(self) -> None:
         """Send Message"""
+        if 'my_message'  not in self.data:
+            self.data['my_message'] = ""
         self._chat_data['chat'].append(self.data['my_message'])
         # self.data['chat'].append(self.data['my_message'])
         self.reset()
