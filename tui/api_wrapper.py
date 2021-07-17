@@ -31,32 +31,31 @@ def get_posts(**kwargs) -> Dict:
     """Get recent posts from api."""
     token = get_token_from_file()
 
-    pload = {'box_id': kwargs['box_id'], "page_no": kwargs.get('page_no', '1')}
+    pload = {"box_id": kwargs["box_id"], "page_no": kwargs.get("page_no", "1")}
     headers = {'Auth-Token': token, 'Content-Type': 'application/json'}
 
-    r = requests.post(base_url + '/posts', data=pload, headers=headers)
+    r = requests.post(base_url + '/posts', json=pload, headers=headers)
     return r.json()
 
 
-def post(**kwargs) -> Dict:
+def post(**kwargs):
     """Create a new Post in the given Box."""
     token = get_token_from_file()
 
-    pload = {'box_id': kwargs['box_id'], 'body': kwargs['body']}
+    pload = {"box_id": kwargs["box_id"], "body": kwargs["body"]}
     headers = {'Auth-Token': token, 'Content-Type': 'application/json'}
 
-    r = requests.post(base_url + '/post', data=pload, headers=headers)
-    return r.json()
+    requests.post(base_url + '/post', json=pload, headers=headers)
 
 
 def get_boxes(**kwargs) -> Dict:
     """Get recent boxes from the api."""
     token = get_token_from_file()
 
-    pload = {"page_no": kwargs.get('page_no', '1')}
+    pload = {"page_no": kwargs.get("page_no", "1")}
     headers = {'Auth-Token': token, 'Content-Type': 'application/json'}
 
-    r = requests.post(base_url + '/boxes', data=pload, headers=headers)
+    r = requests.post(base_url + '/boxes', json=pload, headers=headers)
     return r.json()
 
 
@@ -67,5 +66,5 @@ def new_box(**kwargs) -> Dict:
     pload = {"name": kwargs["name"]}
     headers = {'Auth-Token': token, 'Content-Type': 'application/json'}
 
-    r = requests.post(base_url + '/new_box', data=pload, headers=headers)
+    r = requests.post(base_url + '/new-box', json=pload, headers=headers)
     return r.json()
