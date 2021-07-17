@@ -33,7 +33,7 @@ class ChatPage(Frame):
         layout3 = Layout([1, 1, 1])
         self.add_layout(layout3)
         # Read the widget part on the docuemtation for info about the parameters
-        layout3.add_widget(Button("Send Message", self._onclick_send_message), 0)
+        layout3.add_widget(Button("Send Message", self._onclick_send_message, ), 0)
         layout3.add_widget(Button("Previous Page", self._onclick_previous), 1)
         layout3.add_widget(Button("Quit", self._onclick_quit), 2)
         # Fix the layouts and calculate the locations of all the widgets.
@@ -48,13 +48,18 @@ class ChatPage(Frame):
                 raise StopApplication("User quit")
             if event.key_code in [10, 13]:
                 # self.save()
-                self._chat_data['chat'].append(self.data['my_message'])
-                self.reset()
+                if self.data['is_on_text']:
+                    self._chat_data['chat'].append(self.data['my_message'])
+                    self.reset()
+                
         return super().process_event(event)
 
     def _onchange(self) -> None:
         self.data['my_message'] = self._message_box._value
-        ...
+        if self.data['my_message']:
+            self.data['is_on_text'] = True
+        else:
+            self.data['is_on_text'] = False
 
     def _onclick_send_message(self) -> None:
         """Send Message"""
